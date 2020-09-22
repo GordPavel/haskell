@@ -5,6 +5,7 @@ module Lib
     integration,
     multSecond,
     on3,
+    doItYourself,
   )
 where
 
@@ -49,3 +50,10 @@ multSecond = g `on` h
 
 on3 :: (b -> b -> b -> c) -> (a -> b) -> a -> a -> a -> c
 on3 op f x y z = op (f x) (f y) (f z)
+
+doItYourself :: Double -> Double
+doItYourself = f . g . h
+  where
+    f = logBase 2.0
+    g = flip (^) 3
+    h = max 42

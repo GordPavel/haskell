@@ -71,3 +71,31 @@ instance Printable () where
 
 instance (Printable a, Printable b) => Printable (a, b) where
   toString a = "(" ++ toString (fst a) ++ "," ++ toString (snd a) ++ ")"
+
+class KnownToGork a where
+  stomp :: a -> a
+  doesEnrageGork :: a -> Bool
+
+class KnownToMork a where
+  stab :: a -> a
+  doesEnrageMork :: a -> Bool
+
+class (KnownToGork a, KnownToMork a) => KnownToGorkAndMork a where
+  stompOrStab :: a -> a
+  stompOrStab b
+  {-|
+                                                 | doesEnrageGork b && doesEnrageMork b = stomp (stab b)
+    Why does idea's haskell plugin show error at ^
+
+    <q name>, <varsym>, HaskellTokenType.BACKQUOTE, HaskellTokenType.CHARACTER_LITERAL, HaskellTokenType.COLON_COLON, 
+    HaskellTokenType.CONSYM_ID, HaskellTokenType.CON_ID, HaskellTokenType.DECIMAL, HaskellTokenType.DIRECTIVE, 
+    HaskellTokenType.DOUBLE_RIGHT_ARROW, HaskellTokenType.FLOAT, HaskellTokenType.FORALL, HaskellTokenType.HEXADECIMAL, 
+    HaskellTokenType.INCLUDE_DIRECTIVE, HaskellTokenType.LEFT_BRACE, HaskellTokenType.LEFT_BRACKET, HaskellTokenType.LEFT_PAREN, 
+    HaskellTokenType.NEWLINE, HaskellTokenType.OCTAL, HaskellTokenType.PRAGMA_START, HaskellTokenType.QUOTE, 
+    HaskellTokenType.RIGHT_ARROW, HaskellTokenType.SEMICOLON, HaskellTokenType.STRING_LITERAL, HaskellTokenType.TILDE, 
+    HaskellTokenType.UNDERSCORE, HaskellTokenType.VAR_ID or forall expected, got '|'
+  -}
+    | doesEnrageGork b && doesEnrageMork b = stomp (stab b)
+    | doesEnrageMork b = stomp b
+    | doesEnrageGork b = stab b
+    | otherwise = b

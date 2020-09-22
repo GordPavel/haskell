@@ -68,3 +68,6 @@ instance Printable Bool where
 
 instance Printable () where
   toString _ = "unit type"
+
+instance (Printable a, Printable b) => Printable (a, b) where
+  toString a = "(" ++ toString (fst a) ++ "," ++ toString (snd a) ++ ")"

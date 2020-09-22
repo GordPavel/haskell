@@ -6,6 +6,7 @@ module Lib
     multSecond,
     on3,
     doItYourself,
+    Printable,
   )
 where
 
@@ -57,3 +58,13 @@ doItYourself = f . g . h
     f = logBase 2.0
     g = flip (^) 3
     h = max 42
+
+class Printable a where
+  toString :: a -> String
+
+instance Printable Bool where
+  toString True = "true"
+  toString False = "false"
+
+instance Printable () where
+  toString _ = "unit type"

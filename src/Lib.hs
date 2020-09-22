@@ -2,6 +2,7 @@ module Lib
   ( fibonacci,
     sumNCount,
     seqA,
+    integration,
   )
 where
 
@@ -27,3 +28,12 @@ sumNCount :: Int -> (Int, Int)
 sumNCount x =
   let arr = show $ abs x
    in (sum $ map digitToInt arr, length arr)
+
+integration :: (Eq t, Fractional t) => t -> (t -> t) -> t -> t -> t
+integration steps f a b =
+  let step = (b - a) / steps
+      trapezoidSquare k l h = (k + l) * h / 2
+      integration' accum left n
+        | n == steps = accum
+        | otherwise = integration' (accum + trapezoidSquare (f left) (f (left + step)) step) (left + step) (n + 1)
+   in integration' 0 a 0

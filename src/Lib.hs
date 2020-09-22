@@ -7,6 +7,7 @@ module Lib
     on3,
     doItYourself,
     Printable,
+    MyIp
   )
 where
 
@@ -99,3 +100,16 @@ class (KnownToGork a, KnownToMork a) => KnownToGorkAndMork a where
     | doesEnrageMork b = stomp b
     | doesEnrageGork b = stab b
     | otherwise = b
+    
+    
+newtype MyIp = MyIp Int
+instance Show MyIp where
+  show (MyIp a) = show a ++ "."
+
+ip = show a ++ show b ++ show c ++ show d
+  where
+    a = MyIp 127
+    b = MyIp 224
+    c = MyIp 120
+    d = 12
+

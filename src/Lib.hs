@@ -3,10 +3,12 @@ module Lib
     sumNCount,
     seqA,
     integration,
+    multSecond,
   )
 where
 
 import Data.Char
+import Data.Function
 
 fibonacci :: Int -> Int
 fibonacci = fib 0 1
@@ -37,3 +39,9 @@ integration steps f a b =
         | n == steps = accum
         | otherwise = integration' (accum + trapezoidSquare (f left) (f (left + step)) step) (left + step) (n + 1)
    in integration' 0 a 0
+
+multSecond :: (a, Integer) -> (a, Integer) -> Integer
+multSecond = g `on` h
+  where
+    g = (*)
+    h = snd

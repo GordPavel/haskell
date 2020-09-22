@@ -113,3 +113,12 @@ ip = show a ++ show b ++ show c ++ show d
     c = MyIp 120
     d = 12
 
+class (Ord a, Enum a, Bounded a) => SafeEnum a where
+  ssucc :: a -> a
+  ssucc x 
+    | x < maxBound = succ x
+    | otherwise = minBound
+  spred :: a -> a
+  spred x 
+      | x > minBound = pred x
+      | otherwise = maxBound

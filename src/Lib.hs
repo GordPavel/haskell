@@ -1,8 +1,11 @@
 module Lib
   ( fibonacci,
+    sumNCount,
     seqA,
   )
 where
+
+import Data.Char
 
 fibonacci :: Int -> Int
 fibonacci = fib 0 1
@@ -19,3 +22,8 @@ seqA = seqA' 3 2 1
       | n == 1 = second
       | n == 0 = third
       | otherwise = seqA' (first + second - 2 * third) first second (n -1)
+
+sumNCount :: Int -> (Int, Int)
+sumNCount x =
+  let arr = show $ abs x
+   in (sum $ map digitToInt arr, length arr)
